@@ -18,4 +18,8 @@ public class UrlService {
     public String getLongUrl(String shortUrl) {
         return null;
     }
+
+    public String createShortUrl(String longUrl) {
+        return null;
+    }
 }

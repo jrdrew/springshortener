@@ -25,4 +25,10 @@ public class UrlServiceTest {
         assertNull(urlService.getLongUrl("sdfsdf"));
 
     }
+
+    @Test
+    public void testGetShortUrl() throws Exception {
+        assertNull(urlService.createShortUrl("http://www.example.com"));
+
+    }
 }

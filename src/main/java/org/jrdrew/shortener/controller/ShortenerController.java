@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.io.IOException;
 
@@ -40,5 +41,15 @@ public class ShortenerController {
     @RequestMapping(method = RequestMethod.GET, value = "{shortUrl}")
     public String redirectToLong(@PathVariable String shortUrl) throws IOException {
         return "redirect:" + urlService.getLongUrl(shortUrl);
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/shorten")
+    public ResponseEntity<String> createShortUrl(@RequestParam String url) throws IOException {
+        String shortUrl = urlService.createShortUrl(url);
+
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.add("Content-Type", "application/json; charset=utf-8");
+        return new ResponseEntity<String>(shortUrl, responseHeaders, HttpStatus.OK);
+
     }
 }
