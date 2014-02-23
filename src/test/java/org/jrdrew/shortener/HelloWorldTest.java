@@ -11,7 +11,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
  * Date: 2/23/14
  * Time: 6:59 AM
  */
-public class HelloWorld {
+public class HelloWorldTest {
 
     @Test
     public void canary() {
