@@ -12,18 +12,18 @@ repositories {
 dependencies {
     // Spring
     compile(
-            [group: 'org.springframework', name: 'spring-jdbc', version: '3.2.0.RELEASE'],
-            [group: 'org.springframework', name: 'spring-core', version: '3.2.0.RELEASE'],
-            [group: 'org.springframework', name: 'spring-context', version: '3.2.0.RELEASE'],
-            [group: 'org.springframework', name: 'spring-expression', version: '3.2.0.RELEASE'],
-            [group: 'org.springframework', name: 'spring-web', version: '3.2.0.RELEASE'],
-            [group: 'org.springframework', name: 'spring-webmvc', version: '3.2.0.RELEASE'],
-            [group: 'org.springframework', name: 'spring-aop', version: '3.2.0.RELEASE'],
-            [group: 'org.springframework', name: 'spring-tx', version: '3.2.0.RELEASE'],
-            [group: 'org.springframework', name: 'spring-expression', version: '3.2.0.RELEASE'],
-            [group: 'org.springframework', name: 'spring-test', version: '3.2.0.RELEASE'],
+            [group: 'org.springframework', name: 'spring-jdbc', version: '4.0.2.RELEASE'],
+            [group: 'org.springframework', name: 'spring-core', version: '4.0.2.RELEASE'],
+            [group: 'org.springframework', name: 'spring-context', version: '4.0.2.RELEASE'],
+            [group: 'org.springframework', name: 'spring-expression', version: '4.0.2.RELEASE'],
+            [group: 'org.springframework', name: 'spring-web', version: '4.0.2.RELEASE'],
+            [group: 'org.springframework', name: 'spring-webmvc', version: '4.0.2.RELEASE'],
+            [group: 'org.springframework', name: 'spring-aop', version: '4.0.2.RELEASE'],
+            [group: 'org.springframework', name: 'spring-tx', version: '4.0.2.RELEASE'],
+            [group: 'org.springframework', name: 'spring-expression', version: '4.0.2.RELEASE'],
+            [group: 'org.springframework', name: 'spring-test', version: '4.0.2.RELEASE'],
 
-            [group: 'javax.servlet', name: 'servlet-api', version: '2.5'],
+            [group: 'org.apache.geronimo.specs', name: 'geronimo-servlet_3.0_spec', version: '1.0'],
             [group: 'org.apache.commons', name: 'commons-lang3', version: '3.2.1'],
             [group: 'commons-collections', name: 'commons-collections', version: '3.2.1'],
 
