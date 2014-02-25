@@ -9,6 +9,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import static junit.framework.Assert.assertNotNull;
 import static junit.framework.TestCase.assertNull;
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
@@ -38,18 +39,55 @@ public class UrlServiceTest {
 
     }
 
+    @Test
+    public void testGetShortUrlDifferentForDifferentUrls() throws Exception {
+        String longUrl = "http://www.example.com";
+        String shortUrl = urlService.createShortUrl(longUrl);
+
+        String longUrl2 = "http://www.example.com/example";
+        String shortUrl2 = urlService.createShortUrl(longUrl2);
+
+        assertThat(shortUrl, not(equalTo(shortUrl2)));
+    }
+
+    @Test
+    public void testGetShortUrlSameUrlMultipleTimes() throws Exception {
+        String longUrl = "http://www.example.com";
+        String shortUrl1 = urlService.createShortUrl(longUrl);
+
+        String shortUrl2 = urlService.createShortUrl(longUrl);
+
+        assertThat(shortUrl1, equalTo(shortUrl2));
+
+    }
+
     @Test(expected = IllegalArgumentException.class)
-    public void testGetShortUrlNull() throws Exception {
+    public void testCreateShortUrlNull() throws Exception {
         urlService.createShortUrl(null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testGetShortUrlEmpty() throws Exception {
+    public void testCreateShortUrlEmpty() throws Exception {
         urlService.createShortUrl("");
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testGetShortUrlBlank() throws Exception {
+    public void testCreateShortUrlBlank() throws Exception {
         urlService.createShortUrl(" ");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testGetLongUrlNull() throws Exception {
+        urlService.getLongUrl(null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testGetLongUrlEmpty() throws Exception {
+        urlService.getLongUrl("");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testGetLongUrlBlank() throws Exception {
+        urlService.getLongUrl(" ");
     }
 }

@@ -1,10 +1,9 @@
 package org.jrdrew.shortener.service;
 
+import org.apache.commons.collections.BidiMap;
+import org.apache.commons.collections.bidimap.DualHashBidiMap;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -15,14 +14,17 @@ import java.util.Map;
 @Service
 public class UrlService {
 
-    private final Map<String, String> urlMap;
+    private final BidiMap urlMap;
 
     public UrlService() {
-        urlMap = new HashMap<String, String>();
+        urlMap = new DualHashBidiMap();
     }
 
     public String getLongUrl(String shortUrl) {
-        return urlMap.get(shortUrl);
+        if (StringUtils.isBlank(shortUrl)) {
+            throw new IllegalArgumentException("short url parameter cannot be null or blank");
+        }
+        return (String) urlMap.get(shortUrl);
     }
 
     public String createShortUrl(String longUrl) {
@@ -30,7 +32,12 @@ public class UrlService {
         if (StringUtils.isBlank(longUrl)) {
             throw new IllegalArgumentException("long url parameter cannot be null or blank");
         }
-        String shortUrl = Integer.toString(urlMap.size());
+
+        if (urlMap.containsValue(longUrl)) {
+            return (String) urlMap.getKey(longUrl);
+        }
+
+        String shortUrl = Integer.toString(urlMap.keySet().size());
         urlMap.put(shortUrl, longUrl);
         return shortUrl;
     }
