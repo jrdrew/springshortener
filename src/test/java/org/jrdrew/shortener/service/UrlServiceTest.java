@@ -6,7 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import static junit.framework.Assert.assertNotNull;
 import static junit.framework.TestCase.assertNull;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * Created with IntelliJ IDEA.
@@ -21,14 +24,32 @@ public class UrlServiceTest {
     @Autowired
     private UrlService urlService;
     @Test
-    public void testGetLongUrl() throws Exception {
+    public void testGetLongUrlNotPreviouslySet() throws Exception {
         assertNull(urlService.getLongUrl("sdfsdf"));
 
     }
 
     @Test
     public void testGetShortUrl() throws Exception {
-        assertNull(urlService.createShortUrl("http://www.example.com"));
+        String longUrl = "http://www.example.com";
+        String shortUrl = urlService.createShortUrl(longUrl);
+        assertNotNull(shortUrl);
+        assertThat(urlService.getLongUrl(shortUrl), equalTo(longUrl));
 
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testGetShortUrlNull() throws Exception {
+        urlService.createShortUrl(null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testGetShortUrlEmpty() throws Exception {
+        urlService.createShortUrl("");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testGetShortUrlBlank() throws Exception {
+        urlService.createShortUrl(" ");
     }
 }
