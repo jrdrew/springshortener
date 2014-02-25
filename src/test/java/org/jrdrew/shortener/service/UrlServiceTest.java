@@ -19,7 +19,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
  * Time: 8:05 AM
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("file:src/main/webapp/WEB-INF/shortener-servlet.xml")
+@ContextConfiguration("file:src/main/webapp/WEB-INF/spring-servlet.xml")
 public class UrlServiceTest {
 
     @Autowired

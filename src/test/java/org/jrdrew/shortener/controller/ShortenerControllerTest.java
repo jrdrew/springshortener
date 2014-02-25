@@ -30,7 +30,7 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standal
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@ContextConfiguration("file:src/main/webapp/WEB-INF/shortener-servlet.xml")
+@ContextConfiguration("file:src/main/webapp/WEB-INF/spring-servlet.xml")
 public class ShortenerControllerTest {
 
     @Autowired
