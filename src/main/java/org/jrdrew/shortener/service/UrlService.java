@@ -37,8 +37,23 @@ public class UrlService {
             return (String) urlMap.getKey(longUrl);
         }
 
-        String shortUrl = Integer.toString(urlMap.keySet().size());
+        String shortUrl = generateShortUrl((long) urlMap.size());
         urlMap.put(shortUrl, longUrl);
         return shortUrl;
+    }
+
+    protected String generateShortUrl(long key) {
+
+        Double num = (double) key;
+        String charSet = "23456789abcdefghijkmnpqrstuvwxyzABCDEFGHIJKLMNPQRSTUVWXYZ";
+        Integer length = charSet.length();
+        String encodeString = "";
+        while (num >= length) {
+            encodeString = charSet.charAt(num.intValue() % length) + encodeString;
+            num = Math.ceil(num / length - 1);
+        }
+        encodeString = charSet.charAt(num.intValue()) + encodeString;
+
+        return encodeString;
     }
 }
