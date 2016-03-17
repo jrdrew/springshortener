@@ -65,6 +65,14 @@ public class ShortenerControllerTest extends AbstractSpringConfigTester {
     }
 
     @Test
+    public void testRedirectFailed() throws Exception {
+        String shortUrl = "abcd";
+        when(urlService.getLongUrl("abcd")).thenThrow(new IllegalArgumentException("short url parameter cannot be null or blank"));
+        this.mockMvc.perform(get("/" + shortUrl).accept(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest()).andReturn();
+        verify(urlService, times(1)).getLongUrl(shortUrl);
+    }
+
+    @Test
     public void testCreateShortUrl() throws Exception {
         String inputtedLongUrl = "http://www.example.com";
         String shortUrl = "abcd";

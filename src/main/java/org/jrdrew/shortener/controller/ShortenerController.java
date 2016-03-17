@@ -20,7 +20,7 @@ import java.io.IOException;
  */
 @Controller
 @RequestMapping("/")
-public class ShortenerController {
+public class ShortenerController extends AbstractShortenerController {
 
     private UrlService urlService;
 
@@ -36,7 +36,7 @@ public class ShortenerController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "{shortUrl}")
-    public String redirectToLong(@PathVariable String shortUrl) throws IOException {
+    public String redirectToLong(@PathVariable String shortUrl) throws Exception {
         return "redirect:" + urlService.getLongUrl(shortUrl);
     }
 
