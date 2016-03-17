@@ -1,10 +1,8 @@
 package org.jrdrew.shortener.service;
 
+import org.jrdrew.shortener.AbstractSpringConfigTester;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,9 +20,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
  * Date: 2/23/14
  * Time: 8:05 AM
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("file:src/main/webapp/WEB-INF/spring-servlet.xml")
-public class UrlServiceTest {
+public class UrlServiceTest extends AbstractSpringConfigTester {
 
     @Autowired
     private UrlService urlService;
@@ -111,7 +107,7 @@ public class UrlServiceTest {
     @Test
     public void testGenerateShortUrlUpToTenThousand() {
         int initialCapacity = 10000;
-        List<String> existingShortUrls = new ArrayList<String>(initialCapacity);
+        List<String> existingShortUrls = new ArrayList<>(initialCapacity);
         for (long counter = 0L; counter < initialCapacity; counter++) {
             String shortUrl = urlService.generateShortUrl(counter);
             assertFalse(shortUrl + " already exists: " + counter, existingShortUrls.contains(shortUrl));

@@ -1,22 +1,23 @@
 package org.jrdrew.shortener.controller;
 
+import org.jrdrew.shortener.AbstractSpringConfigTester;
 import org.jrdrew.shortener.service.UrlService;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.web.context.WebApplicationContext;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -28,10 +29,7 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standal
  * Date: 2/23/14
  * Time: 7:08 AM
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@WebAppConfiguration
-@ContextConfiguration("file:src/main/webapp/WEB-INF/spring-servlet.xml")
-public class ShortenerControllerTest {
+public class ShortenerControllerTest extends AbstractSpringConfigTester {
 
     @Autowired
     protected WebApplicationContext wac;
@@ -61,7 +59,7 @@ public class ShortenerControllerTest {
         String expectedLongUrl = "http://www.example.com";
         String shortUrl = "abcd";
         when(urlService.getLongUrl(shortUrl)).thenReturn(expectedLongUrl);
-        MvcResult mvcResult = this.mockMvc.perform(get("/" + shortUrl).accept(MediaType.APPLICATION_JSON)).andExpect(status().isMovedTemporarily()).andReturn();
+        MvcResult mvcResult = this.mockMvc.perform(get("/" + shortUrl).accept(MediaType.APPLICATION_JSON)).andExpect(status().isFound()).andReturn();
         assertThat(mvcResult.getResponse().getRedirectedUrl(), equalTo(expectedLongUrl));
         verify(urlService, times(1)).getLongUrl(shortUrl);
     }
